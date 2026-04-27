@@ -1,0 +1,4 @@
+[
+  {"clause_id": "c-1", "clause_type": "PaymentTerm", "properties": {"paymentDays": 90}, "confidence": 0.93},
+  {"clause_id": "c-2", "clause_type": "LiabilityClause", "properties": {"liabilityCap": 57500, "liabilityScope": "DirectDamagesOnly"}, "confidence": 0.72}
+]

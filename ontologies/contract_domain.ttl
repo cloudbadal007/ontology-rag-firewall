@@ -1,0 +1,5 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+<http://ontoarc.ai/contract/domain> a owl:Ontology ;
+  owl:imports <http://ontoarc.ai/contract/owl> ,
+              <http://ontoarc.ai/contract/shacl> .

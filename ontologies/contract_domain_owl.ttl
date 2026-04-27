@@ -1,0 +1,43 @@
+@prefix cont: <http://ontoarc.ai/contract#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cont:Contract a owl:Class ; rdfs:label "Contract" ; rdfs:comment "Binding agreement between parties." .
+cont:Party a owl:Class ; rdfs:label "Party" ; rdfs:comment "Entity party to the contract." .
+cont:LiabilityClause a owl:Class ; rdfs:label "Liability Clause" ; rdfs:comment "Liability limits and exclusions." .
+cont:PaymentTerm a owl:Class ; rdfs:label "Payment Term" ; rdfs:comment "Payment schedule and conditions." .
+cont:TerminationClause a owl:Class ; rdfs:label "Termination Clause" ; rdfs:comment "Termination conditions and notice." .
+cont:SLACommitment a owl:Class ; rdfs:label "SLA Commitment" ; rdfs:comment "Service level commitments with remedies." .
+cont:IndemnificationClause a owl:Class ; rdfs:label "Indemnification Clause" ; rdfs:comment "Indemnification obligations." .
+cont:IPClause a owl:Class ; rdfs:label "IP Clause" ; rdfs:comment "Intellectual property ownership terms." .
+
+cont:LiabilityScope a owl:Class ; rdfs:label "Liability Scope" ; rdfs:comment "Abstract liability scope parent class." .
+cont:DirectDamagesOnly a owl:Class ; rdfs:subClassOf cont:LiabilityScope ; rdfs:label "Direct Damages Only" ; rdfs:comment "Consequential damages excluded." .
+cont:FullDamages a owl:Class ; rdfs:subClassOf cont:LiabilityScope ; rdfs:label "Full Damages" ; rdfs:comment "All damages recoverable." .
+cont:ConsequentialDamagesExcluded a owl:Class ; rdfs:subClassOf cont:LiabilityScope ; rdfs:label "Consequential Damages Excluded" ; rdfs:comment "Consequential damages are excluded." .
+cont:MutualLiabilityCap a owl:Class ; rdfs:subClassOf cont:LiabilityScope ; rdfs:label "Mutual Liability Cap" ; rdfs:comment "Both parties share liability cap constraints." .
+
+cont:RemedyType a owl:Class ; rdfs:label "Remedy Type" ; rdfs:comment "Abstract remedy class." .
+cont:CreditOnly a owl:Class ; rdfs:subClassOf cont:RemedyType ; rdfs:label "Credit Only" ; rdfs:comment "Only service credits available." .
+cont:TerminationRight a owl:Class ; rdfs:subClassOf cont:RemedyType ; rdfs:label "Termination Right" ; rdfs:comment "Right to terminate on breach." .
+cont:FinancialRemedy a owl:Class ; rdfs:subClassOf cont:RemedyType ; rdfs:label "Financial Remedy" ; rdfs:comment "Cash payment remedy available." .
+cont:NoRemedy a owl:Class ; rdfs:subClassOf cont:RemedyType ; rdfs:label "No Remedy" ; rdfs:comment "No enforceable remedy provided." .
+
+cont:hasLiabilityClause a owl:ObjectProperty ; rdfs:domain cont:Contract ; rdfs:range cont:LiabilityClause ; rdfs:label "has liability clause" ; rdfs:comment "Links contract to liability clause." .
+cont:hasPaymentTerm a owl:ObjectProperty ; rdfs:domain cont:Contract ; rdfs:range cont:PaymentTerm ; rdfs:label "has payment term" ; rdfs:comment "Links contract to payment terms." .
+cont:hasTerminationClause a owl:ObjectProperty ; rdfs:domain cont:Contract ; rdfs:range cont:TerminationClause ; rdfs:label "has termination clause" ; rdfs:comment "Links contract to termination clause." .
+cont:hasSLACommitment a owl:ObjectProperty ; rdfs:domain cont:Contract ; rdfs:range cont:SLACommitment ; rdfs:label "has SLA commitment" ; rdfs:comment "Links contract to service level commitment." .
+cont:hasLiabilityScope a owl:ObjectProperty ; rdfs:domain cont:LiabilityClause ; rdfs:range cont:LiabilityScope ; rdfs:label "has liability scope" ; rdfs:comment "Assigns a liability scope." .
+cont:hasRemedy a owl:ObjectProperty ; rdfs:domain cont:SLACommitment ; rdfs:range cont:RemedyType ; rdfs:label "has remedy" ; rdfs:comment "Assigns a remedy type." .
+
+cont:liabilityCap a owl:DatatypeProperty ; rdfs:label "liability cap" ; rdfs:comment "Maximum liability in currency." ; rdfs:range xsd:decimal .
+cont:contractValue a owl:DatatypeProperty ; rdfs:label "contract value" ; rdfs:comment "Total contract value." ; rdfs:range xsd:decimal .
+cont:paymentDays a owl:DatatypeProperty ; rdfs:label "payment days" ; rdfs:comment "Net days for payment." ; rdfs:range xsd:integer .
+cont:noticePeriodDays a owl:DatatypeProperty ; rdfs:label "notice period days" ; rdfs:comment "Termination notice days." ; rdfs:range xsd:integer .
+cont:uptimeCommitment a owl:DatatypeProperty ; rdfs:label "uptime commitment" ; rdfs:comment "Uptime percentage commitment." ; rdfs:range xsd:decimal .
+cont:extractionConfidence a owl:DatatypeProperty ; rdfs:label "extraction confidence" ; rdfs:comment "Extractor confidence score." ; rdfs:range xsd:decimal .
+cont:requiresHumanReview a owl:DatatypeProperty ; rdfs:label "requires human review" ; rdfs:comment "Marks clauses requiring human review." ; rdfs:range xsd:boolean .
+cont:jurisdiction a owl:DatatypeProperty ; rdfs:label "jurisdiction" ; rdfs:comment "Governing law jurisdiction." ; rdfs:range xsd:string .
+cont:autoRenews a owl:DatatypeProperty ; rdfs:label "auto renews" ; rdfs:comment "Auto-renewal flag." ; rdfs:range xsd:boolean .

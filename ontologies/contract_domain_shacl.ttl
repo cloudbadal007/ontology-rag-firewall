@@ -1,0 +1,140 @@
+@prefix cont: <http://ontoarc.ai/contract#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cont:LiabilityCapRatioShape a sh:NodeShape ;
+    sh:targetClass cont:LiabilityClause ;
+    sh:severity sh:Warning ;
+    sh:message "⚠️ LIABILITY RISK: Cap is less than 10% of contract value. Human review required." ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:select """
+PREFIX cont: <http://ontoarc.ai/contract#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT $this WHERE {
+  ?contract cont:hasLiabilityClause $this ;
+            cont:contractValue ?v .
+  $this cont:liabilityCap ?cap .
+  FILTER (xsd:decimal(?cap) < (xsd:decimal(?v) * 0.10))
+}
+""" ;
+    ] .
+
+cont:DirectDamagesReviewShape a sh:NodeShape ;
+    sh:targetClass cont:LiabilityClause ;
+    sh:severity sh:Warning ;
+    sh:message "⚠️ LEGAL REVIEW: DirectDamagesOnly scope detected. Consequential losses excluded. Verify risk acceptance." ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:select """
+PREFIX cont: <http://ontoarc.ai/contract#>
+SELECT $this WHERE {
+  $this cont:hasLiabilityScope cont:DirectDamagesOnly .
+  FILTER NOT EXISTS { $this cont:requiresHumanReview true }
+}
+""" ;
+    ] .
+
+cont:PaymentTermShape a sh:NodeShape ;
+    sh:targetClass cont:PaymentTerm ;
+    sh:severity sh:Warning ;
+    sh:message "⚠️ FINANCE REVIEW: Payment terms exceed 60 days. Cash flow impact requires approval." ;
+    sh:property [
+        sh:path cont:paymentDays ;
+        sh:maxInclusive 60 ;
+    ] .
+
+cont:TerminationNoticeShape a sh:NodeShape ;
+    sh:targetClass cont:TerminationClause ;
+    sh:severity sh:Warning ;
+    sh:message "⚠️ LEGAL RISK: Termination notice period is less than 30 days. Review required." ;
+    sh:property [
+        sh:path cont:noticePeriodDays ;
+        sh:minInclusive 30 ;
+    ] .
+
+cont:SLACommitmentShape a sh:NodeShape ;
+    sh:targetClass cont:SLACommitment ;
+    sh:severity sh:Warning ;
+    sh:message "⚠️ SLA RISK: Uptime commitment below 99.5%. Business continuity review required." ;
+    sh:property [
+        sh:path cont:uptimeCommitment ;
+        sh:minInclusive 99.5 ;
+    ] .
+
+cont:LowConfidenceExtractionShape a sh:NodeShape ;
+    sh:targetClass cont:LiabilityClause ;
+    sh:severity sh:Warning ;
+    sh:message "⚠️ LOW CONFIDENCE: Extraction confidence below threshold. Human verification required." ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:select """
+PREFIX cont: <http://ontoarc.ai/contract#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT $this WHERE {
+  $this cont:extractionConfidence ?c .
+  FILTER (xsd:decimal(?c) < 0.75)
+}
+""" ;
+    ] .
+
+cont:NoRemedySLAShape a sh:NodeShape ;
+    sh:targetClass cont:SLACommitment ;
+    sh:severity sh:Warning ;
+    sh:message "⚠️ SLA RISK: No enforceable remedy specified. 'Commercially reasonable efforts' is not an SLA." ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:select """
+PREFIX cont: <http://ontoarc.ai/contract#>
+SELECT $this WHERE {
+  $this cont:hasRemedy cont:NoRemedy .
+}
+""" ;
+    ] .
+
+cont:AutoRenewalFlagShape a sh:NodeShape ;
+    sh:targetClass cont:Contract ;
+    sh:severity sh:Warning ;
+    sh:message "⚠️ AUTO-RENEWAL RISK: Contract auto-renews with less than 60-day cancellation window." ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:select """
+PREFIX cont: <http://ontoarc.ai/contract#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT $this WHERE {
+  $this cont:autoRenews true ;
+        cont:hasTerminationClause ?term .
+  ?term cont:noticePeriodDays ?days .
+  FILTER (xsd:integer(?days) < 60)
+}
+""" ;
+    ] .
+
+cont:MissingLiabilityClauseShape a sh:NodeShape ;
+    sh:targetClass cont:Contract ;
+    sh:severity sh:Violation ;
+    sh:message "🚨 CRITICAL: No liability clause extracted. Contract cannot be approved without liability terms." ;
+    sh:property [
+        sh:path cont:hasLiabilityClause ;
+        sh:minCount 1 ;
+    ] .
+
+cont:HighValueLowCapShape a sh:NodeShape ;
+    sh:targetClass cont:LiabilityClause ;
+    sh:severity sh:Violation ;
+    sh:message "🚨 CRITICAL: High-value contract with very low absolute liability cap. Legal escalation required." ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:select """
+PREFIX cont: <http://ontoarc.ai/contract#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT $this WHERE {
+  ?contract cont:hasLiabilityClause $this ;
+            cont:contractValue ?v .
+  $this cont:liabilityCap ?cap .
+  FILTER (xsd:decimal(?v) > 1000000 && xsd:decimal(?cap) < 100000)
+}
+""" ;
+    ] .
