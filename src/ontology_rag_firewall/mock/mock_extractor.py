@@ -31,7 +31,7 @@ class MockLLMExtractor:
                 clause_id,
                 "LiabilityClause",
                 clause_text,
-                {"liabilityCap": 57500, "liabilityScope": "DirectDamagesOnly"},
+                {"liabilityCap": 575000, "liabilityScope": "DirectDamagesOnly"},
                 0.72,
                 page,
             )

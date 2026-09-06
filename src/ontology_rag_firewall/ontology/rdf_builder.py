@@ -42,7 +42,12 @@ class ClauseRDFBuilder:
         g.add((contract_uri, CONT.autoRenews, Literal(False, datatype=XSD.boolean)))
 
         clause_type_uri = self.CLAUSE_TYPE_MAP.get(clause.clause_type, OWL.Thing)
-        g.add((uri, RDF.type, clause_type_uri))
+        if clause.clause_type != "Contract":
+            # Contract-level clauses (e.g. auto-renewal) write directly onto contract_uri below;
+            # typing the clause node itself as cont:Contract would create a second Contract-typed
+            # node with no hasLiabilityClause/hasPaymentTerm/etc., which trips the
+            # MissingLiabilityClauseShape (and similar) SHACL rules as false positives.
+            g.add((uri, RDF.type, clause_type_uri))
         self._add_base_properties(g, uri, clause)
 
         if clause.clause_type == "LiabilityClause":

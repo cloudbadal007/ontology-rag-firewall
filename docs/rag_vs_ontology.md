@@ -4,6 +4,11 @@
 
 RAG and ontology solve different problems. Enterprise systems need both.
 
+> This document covers standard (vector-similarity) RAG. For how GraphRAG
+> changes the retrieval side of this comparison — and why it still doesn't
+> replace the ontology layer — see
+> [`docs/graphrag_vs_shacl.md`](graphrag_vs_shacl.md).
+
 ## What RAG Does Well
 
 - Retrieves relevant source text quickly.
