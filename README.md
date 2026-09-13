@@ -176,6 +176,14 @@ Every processed clause is appended as one JSON line to `audit_logs/extraction_au
 - RAG vs ontology guidance: `docs/rag_vs_ontology.md`
 - RAG vs GraphRAG vs GraphRAG+SHACL: `docs/graphrag_vs_shacl.md`
 
+### Contract vocabulary (`cont:`)
+
+RDF term IDs use a namespace URI (the `#` suffix names classes and properties). It is not a folder on github.com — open the TTL files instead:
+
+- **Namespace:** `https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_owl.ttl#` (prefix `cont:`)
+- **OWL (classes/properties):** [ontologies/contract_domain_owl.ttl](https://github.com/cloudbadal007/ontology-rag-firewall/blob/main/ontologies/contract_domain_owl.ttl)
+- **SHACL (rules):** [ontologies/contract_domain_shacl.ttl](https://github.com/cloudbadal007/ontology-rag-firewall/blob/main/ontologies/contract_domain_shacl.ttl)
+
 ## Quick Start
 
 ```bash

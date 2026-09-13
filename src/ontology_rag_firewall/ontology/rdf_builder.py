@@ -5,7 +5,7 @@ from rdflib.namespace import OWL, XSD
 
 from ontology_rag_firewall.pipeline.models import ExtractedClause
 
-CONT = Namespace("https://github.com/cloudbadal007/ontology-rag-firewall/contract#")
+CONT = Namespace("https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_owl.ttl#")
 
 
 class ClauseRDFBuilder:
@@ -35,8 +35,8 @@ class ClauseRDFBuilder:
         """Build a graph for one clause, including a contract root resource."""
         g = Graph()
         g.bind("cont", CONT)
-        contract_uri = URIRef(f"https://github.com/cloudbadal007/ontology-rag-firewall/instance/contract/{clause.clause_id.split('-')[0]}")
-        uri = URIRef(f"https://github.com/cloudbadal007/ontology-rag-firewall/instance/clause/{clause.clause_id}")
+        contract_uri = URIRef(f"https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_owl.ttl#instance/contract/{clause.clause_id.split('-')[0]}")
+        uri = URIRef(f"https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_owl.ttl#instance/clause/{clause.clause_id}")
         g.add((contract_uri, RDF.type, CONT.Contract))
         g.add((contract_uri, CONT.contractValue, Literal(contract_value, datatype=XSD.decimal)))
         g.add((contract_uri, CONT.autoRenews, Literal(False, datatype=XSD.boolean)))

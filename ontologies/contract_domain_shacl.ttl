@@ -1,4 +1,4 @@
-@prefix cont: <https://github.com/cloudbadal007/ontology-rag-firewall/contract#> .
+@prefix cont: <https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_owl.ttl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
@@ -11,7 +11,7 @@ cont:LiabilityCapRatioShape a sh:NodeShape ;
     sh:sparql [
         a sh:SPARQLConstraint ;
         sh:select """
-PREFIX cont: <https://github.com/cloudbadal007/ontology-rag-firewall/contract#>
+PREFIX cont: <https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_owl.ttl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 SELECT $this WHERE {
   ?contract cont:hasLiabilityClause $this ;
@@ -29,7 +29,7 @@ cont:DirectDamagesReviewShape a sh:NodeShape ;
     sh:sparql [
         a sh:SPARQLConstraint ;
         sh:select """
-PREFIX cont: <https://github.com/cloudbadal007/ontology-rag-firewall/contract#>
+PREFIX cont: <https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_owl.ttl#>
 SELECT $this WHERE {
   $this cont:hasLiabilityScope cont:DirectDamagesOnly .
   FILTER NOT EXISTS { $this cont:requiresHumanReview true }
@@ -71,7 +71,7 @@ cont:LowConfidenceExtractionShape a sh:NodeShape ;
     sh:sparql [
         a sh:SPARQLConstraint ;
         sh:select """
-PREFIX cont: <https://github.com/cloudbadal007/ontology-rag-firewall/contract#>
+PREFIX cont: <https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_owl.ttl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 SELECT $this WHERE {
   $this cont:extractionConfidence ?c .
@@ -87,7 +87,7 @@ cont:NoRemedySLAShape a sh:NodeShape ;
     sh:sparql [
         a sh:SPARQLConstraint ;
         sh:select """
-PREFIX cont: <https://github.com/cloudbadal007/ontology-rag-firewall/contract#>
+PREFIX cont: <https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_owl.ttl#>
 SELECT $this WHERE {
   $this cont:hasRemedy cont:NoRemedy .
 }
@@ -101,7 +101,7 @@ cont:AutoRenewalFlagShape a sh:NodeShape ;
     sh:sparql [
         a sh:SPARQLConstraint ;
         sh:select """
-PREFIX cont: <https://github.com/cloudbadal007/ontology-rag-firewall/contract#>
+PREFIX cont: <https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_owl.ttl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 SELECT $this WHERE {
   $this cont:autoRenews true ;
@@ -128,7 +128,7 @@ cont:HighValueLowCapShape a sh:NodeShape ;
     sh:sparql [
         a sh:SPARQLConstraint ;
         sh:select """
-PREFIX cont: <https://github.com/cloudbadal007/ontology-rag-firewall/contract#>
+PREFIX cont: <https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_owl.ttl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 SELECT $this WHERE {
   ?contract cont:hasLiabilityClause $this ;
@@ -146,7 +146,7 @@ cont:ExecutiveCapRatioShape a sh:NodeShape ;
     sh:sparql [
         a sh:SPARQLConstraint ;
         sh:select """
-PREFIX cont: <https://github.com/cloudbadal007/ontology-rag-firewall/contract#>
+PREFIX cont: <https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_owl.ttl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 SELECT $this ?capRatio WHERE {
   ?contract cont:hasLiabilityClause $this ;

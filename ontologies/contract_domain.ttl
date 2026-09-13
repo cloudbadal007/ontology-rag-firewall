@@ -1,5 +1,5 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 
-<https://github.com/cloudbadal007/ontology-rag-firewall/contract/domain> a owl:Ontology ;
-  owl:imports <https://github.com/cloudbadal007/ontology-rag-firewall/contract/owl> ,
-              <https://github.com/cloudbadal007/ontology-rag-firewall/contract/shacl> .
+<https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain.ttl> a owl:Ontology ;
+  owl:imports <https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_owl.ttl> ,
+              <https://raw.githubusercontent.com/cloudbadal007/ontology-rag-firewall/main/ontologies/contract_domain_shacl.ttl> .
