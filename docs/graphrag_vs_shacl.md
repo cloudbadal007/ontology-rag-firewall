@@ -1,5 +1,3 @@
-# Part of the OntoArc enterprise ontology toolkit
-
 # RAG vs GraphRAG vs GraphRAG + OWL/SHACL
 
 Practitioner comparisons of RAG and GraphRAG stop at retrieval quality.

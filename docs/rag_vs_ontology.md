@@ -1,6 +1,4 @@
-﻿# Part of the OntoArc enterprise ontology toolkit
-
-# RAG vs Ontology vs Both
+﻿# RAG vs Ontology vs Both
 
 RAG and ontology solve different problems. Enterprise systems need both.
 

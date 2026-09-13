@@ -1,6 +1,4 @@
-﻿# Part of the OntoArc enterprise ontology toolkit
-
-# Extending the Firewall
+﻿# Extending the Firewall
 
 This guide shows how to add a new document type, ontology classes, and SHACL
 constraints while preserving the same governance behavior.

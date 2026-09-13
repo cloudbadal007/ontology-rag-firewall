@@ -1,6 +1,4 @@
-﻿# Part of the OntoArc enterprise ontology toolkit
-
-# Architecture
+﻿# Architecture
 
 This repository implements an ontology-gated extraction firewall for enterprise
 documents. The design treats the LLM extractor as an untrusted component and

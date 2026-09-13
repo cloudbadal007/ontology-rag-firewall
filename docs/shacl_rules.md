@@ -1,6 +1,4 @@
-﻿# Part of the OntoArc enterprise ontology toolkit
-
-# SHACL Rules Explained
+﻿# SHACL Rules Explained
 
 This document translates each SHACL constraint into plain language for legal,
 procurement, finance, and platform engineering teams.

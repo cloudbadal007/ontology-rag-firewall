@@ -298,6 +298,4 @@ is `True` — with the current `MockLLMExtractor`'s narrow phrase-matching, that
 plug in your own extractor, don't rely on `flagged_clauses` alone to explain
 a halt — inspect `result.ontology_graph` or the SHACL report directly.
 
-Part of the OntoArc enterprise ontology toolkit  
-Built by Pankaj Kumar — OntoArc  
-Built by Pankaj Kumar — github.com/cloudbadal007
+Maintainer: [Pankaj Kumar](https://github.com/cloudbadal007) · Medium [@cloudpankaj](https://medium.com/@cloudpankaj)

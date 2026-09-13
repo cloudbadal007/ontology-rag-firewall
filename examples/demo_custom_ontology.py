@@ -1,4 +1,4 @@
-"""Part of the OntoArc enterprise ontology toolkit."""
+"""Ontology RAG Firewall - OWL/SHACL-gated extraction pipeline."""
 
 
 def main() -> None:

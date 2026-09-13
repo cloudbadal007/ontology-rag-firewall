@@ -1,4 +1,4 @@
-"""Part of the OntoArc enterprise ontology toolkit."""
+"""Ontology RAG Firewall - OWL/SHACL-gated extraction pipeline."""
 
 from ontology_rag_firewall.pipeline.models import ExtractedClause
 

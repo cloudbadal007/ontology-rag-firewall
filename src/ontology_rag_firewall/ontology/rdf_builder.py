@@ -1,4 +1,4 @@
-"""Part of the OntoArc enterprise ontology toolkit."""
+"""Ontology RAG Firewall - OWL/SHACL-gated extraction pipeline."""
 
 from rdflib import Graph, Literal, Namespace, RDF, URIRef
 from rdflib.namespace import OWL, XSD

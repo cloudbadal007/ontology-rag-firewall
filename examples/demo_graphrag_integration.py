@@ -1,4 +1,4 @@
-"""Part of the OntoArc enterprise ontology toolkit.
+"""Ontology RAG Firewall.
 
 Shows the firewall consuming GraphRAG output instead of vector-RAG + LLM
 extraction. See docs/graphrag_vs_shacl.md for the full argument: GraphRAG

@@ -1,4 +1,4 @@
-"""Part of the OntoArc enterprise ontology toolkit."""
+"""Ontology RAG Firewall - OWL/SHACL-gated extraction pipeline."""
 
 from ontology_rag_firewall.mock.mock_extractor import MockLLMExtractor
 from ontology_rag_firewall.mock.sample_contracts import CONTRACT_VALUE, SAMPLE_CONTRACT_TEXT
