@@ -39,3 +39,42 @@ def test_valid_inverse_cases() -> None:
             merged.add(triple)
     conforms, violations, _ = validator.validate(merged)
     assert conforms is True, f"Unexpected violations: {violations}"
+
+
+def test_liability_cap_below_30_percent_on_high_value_contract() -> None:
+    """
+    25% cap on a $2.3M contract must trigger ExecutiveCapRatioShape.
+
+    Existing shapes (10% ratio, $100K absolute) do not catch 575K / 2.3M.
+    """
+    clause = ExtractedClause(
+        "test-cap-ratio",
+        "LiabilityClause",
+        "text",
+        {"liabilityCap": 575_000, "liabilityScope": "DirectDamagesOnly"},
+        0.9,
+        1,
+    )
+    graph = ClauseRDFBuilder().build(clause, 2_300_000)
+    conforms, violations, _ = SHACLContractValidator().validate(graph)
+    assert not conforms
+    assert any(
+        "30%" in v or "executive" in v.lower() for v in violations
+    ), violations
+
+
+def test_liability_cap_at_32_percent_no_executive_flag() -> None:
+    clause = ExtractedClause(
+        "test-cap-ratio-ok",
+        "LiabilityClause",
+        "text",
+        {"liabilityCap": 750_000, "liabilityScope": "FullDamages"},
+        0.9,
+        1,
+    )
+    graph = ClauseRDFBuilder().build(clause, 2_300_000)
+    _, violations, _ = SHACLContractValidator().validate(graph)
+    cap_ratio_hits = [
+        v for v in violations if "30%" in v or "executive" in v.lower()
+    ]
+    assert len(cap_ratio_hits) == 0, cap_ratio_hits

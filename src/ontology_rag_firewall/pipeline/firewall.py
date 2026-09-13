@@ -70,7 +70,7 @@ class OntologyRAGFirewall:
 
     def _violation_matches_clause(self, violation: str, clause_type: str) -> bool:
         mapping = {
-            "LiabilityClause": ["LIABILITY", "LOW CONFIDENCE", "LEGAL REVIEW", "HIGH-VALUE"],
+            "LiabilityClause": ["LIABILITY", "LOW CONFIDENCE", "LEGAL REVIEW", "HIGH-VALUE", "EXECUTIVE"],
             "PaymentTerm": ["FINANCE REVIEW"],
             "TerminationClause": ["TERMINATION", "AUTO-RENEWAL"],
             "SLACommitment": ["SLA RISK"],

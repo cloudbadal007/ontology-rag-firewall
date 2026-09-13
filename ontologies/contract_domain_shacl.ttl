@@ -138,3 +138,23 @@ SELECT $this WHERE {
 }
 """ ;
     ] .
+
+cont:ExecutiveCapRatioShape a sh:NodeShape ;
+    sh:targetClass cont:LiabilityClause ;
+    sh:severity sh:Warning ;
+    sh:message "⚠️ EXECUTIVE APPROVAL: Liability cap is below 30% of contract value. Cap ratio: {?capRatio}%. Agent action requires executive sign-off." ;
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:select """
+PREFIX cont: <http://ontoarc.ai/contract#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT $this ?capRatio WHERE {
+  ?contract cont:hasLiabilityClause $this ;
+            cont:contractValue ?v .
+  $this cont:liabilityCap ?cap .
+  BIND((xsd:decimal(?cap) / xsd:decimal(?v) * 100) AS ?capRatio)
+  FILTER (xsd:decimal(?v) >= 500000)
+  FILTER (?capRatio < 30)
+}
+""" ;
+    ] .
